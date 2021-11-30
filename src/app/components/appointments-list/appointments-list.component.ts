@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./appointments-list.component.css']
 })
 export class AppointmentsListComponent implements OnInit {
-
+  appointments = []
+  
   constructor() { }
 
   ngOnInit(): void {
