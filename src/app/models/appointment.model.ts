@@ -3,9 +3,9 @@ export class Appointment {
     public time: Date
     public createTime: Date
 
-    constructor(name: string, time: Date, createTime: Date) {
+    constructor(name: string, time: Date) {
         this.name = name
         this.time = time
-        this.createTime = createTime
+        this.createTime = new Date(Date.now())
     }
 }
