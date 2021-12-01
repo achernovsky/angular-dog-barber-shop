@@ -1,21 +1,5 @@
 <div class="row mt-2">
     <div class="col-xs-12 list-group p-0">
-        <div class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let app of appointments">
-            <a href="#" class="text-decoration-none text-reset" >
-                <h4 class="list-group-item-heading">{{ app.name }}</h4>
-                <p class="list-group-item-text">{{ app.time }}</p>
-            </a>
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    Manage Appointment
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="">Edit Appointment</a></li>
-                    <li><a class="dropdown-item" href="">Delete Appointment</a></li>
-                </ul>
-            </div>
-
-        </div>
-        <app-appointment></app-appointment>
+        <app-appointment *ngFor="let app of appointments" [appointment]="app"></app-appointment>
     </div>
 </div>
