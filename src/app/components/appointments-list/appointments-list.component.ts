@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Appointment } from 'src/app/models/appointment.model';
 
 @Component({
@@ -12,9 +12,15 @@ export class AppointmentsListComponent implements OnInit {
     new Appointment("Oscar", new Date("2021-12-14T17:30:00")),
   ]
 
+  @Output() featureSelected = new EventEmitter<string>();
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onClick(feature: string) {
+    this.featureSelected.emit(feature)
   }
 
 }

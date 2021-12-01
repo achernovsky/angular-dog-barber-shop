@@ -1,16 +1,2 @@
-<!-- <div class="row">
-    <div class="col-xs-12">
-        <button class="btn btn-success mt-2">New Appointment</button>
-    </div>
-</div> -->
-<div class="row">
-    <div class="mt-2 p-4 shadow-4 rounded-3 d-flex flex-column justify-content-between main-jumbotron">
-        <h2 class="text-light">Welcome to our dog barber shop!</h2>
-        <div>
-            <button type="button" class="btn btn-success">
-                New Appointment
-            </button>
-        </div>
-     </div>
-</div>
-<app-appointments-list></app-appointments-list>
+<app-add-appointment *ngIf="loadedFeature == 'add-appointment'"></app-add-appointment>
+<app-appointments-list *ngIf="loadedFeature == 'list'" (featureSelected)="onFeatureSelect($event)"></app-appointments-list>

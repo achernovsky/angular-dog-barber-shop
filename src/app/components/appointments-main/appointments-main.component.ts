@@ -12,4 +12,9 @@ export class AppointmentsMainComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  loadedFeature: string = 'list'
+
+  onFeatureSelect(feature: string) {
+    this.loadedFeature = feature
+  }
 }

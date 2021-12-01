@@ -8,6 +8,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { AppointmentsMainComponent } from './components/appointments-main/appointments-main.component';
 import { AppointmentsListComponent } from './components/appointments-list/appointments-list.component';
 import { AppointmentComponent } from './components/appointment/appointment.component';
+import { AddAppointmentComponent } from './components/add-appointment/add-appointment.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { AppointmentComponent } from './components/appointment/appointment.compo
     HeaderComponent,
     AppointmentsMainComponent,
     AppointmentsListComponent,
-    AppointmentComponent
+    AppointmentComponent,
+    AddAppointmentComponent
   ],
   imports: [
     BrowserModule,
