@@ -1,2 +1,9 @@
-<app-add-appointment *ngIf="loadedFeature == 'add-appointment'"></app-add-appointment>
-<app-appointments-list *ngIf="loadedFeature == 'list'" (featureSelected)="onFeatureSelect($event)"></app-appointments-list>
+<app-add-appointment 
+    *ngIf="loadedFeature == 'add-appointment'"
+    (appointmentAdded)="onAppointmentAdded($event)"
+></app-add-appointment>
+<app-appointments-list
+    *ngIf="loadedFeature == 'list'" 
+    (featureSelected)="onFeatureSelect($event)"
+    [appointments]="appointments"
+></app-appointments-list>

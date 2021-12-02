@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Appointment } from 'src/app/models/appointment.model';
 
 @Component({
@@ -7,10 +7,7 @@ import { Appointment } from 'src/app/models/appointment.model';
   styleUrls: ['./appointments-list.component.css']
 })
 export class AppointmentsListComponent implements OnInit {
-  appointments: Appointment[] = [
-    new Appointment("Lucky", new Date("2021-12-13T18:30:00")),
-    new Appointment("Oscar", new Date("2021-12-14T17:30:00")),
-  ]
+  @Input() appointments: Appointment[]
 
   @Output() featureSelected = new EventEmitter<string>();
 
