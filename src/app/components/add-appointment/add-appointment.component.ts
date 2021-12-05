@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Appointment } from 'src/app/models/appointment.model';
+import { AppointmentService } from 'src/app/services/appointment.service';
 
 @Component({
   selector: 'app-add-appointment',
@@ -9,9 +10,9 @@ import { Appointment } from 'src/app/models/appointment.model';
 export class AddAppointmentComponent implements OnInit {
   @ViewChild('nameInput', { static: false }) nameInputRef: ElementRef
   @ViewChild('timeInput', { static: false }) timeInputRef: ElementRef
-  @Output() appointmentAdded = new EventEmitter<Appointment>()
+  @Output() appointmentAdded = new EventEmitter<any>()
 
-  constructor() { }
+  constructor(private appointmentService: AppointmentService) { }
 
   ngOnInit(): void {
   }
@@ -20,6 +21,7 @@ export class AddAppointmentComponent implements OnInit {
     const appName = this.nameInputRef.nativeElement.value
     const appTime = this.timeInputRef.nativeElement.value
     const newAppointment = new Appointment(appName, appTime)
-    this.appointmentAdded.emit(newAppointment)
+    this.appointmentService.addAppointment(newAppointment)
+    this.appointmentAdded.emit()
   }
 }
