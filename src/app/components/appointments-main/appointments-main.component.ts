@@ -9,21 +9,21 @@ import { AppointmentService } from 'src/app/services/appointment.service';
   providers: [AppointmentService]
 })
 export class AppointmentsMainComponent implements OnInit {
-  appointments: Appointment[]
-  loadedFeature: string = 'list'
+  // appointments: Appointment[]
+  // loadedFeature: string = 'list'
 
   constructor(private appointmentService: AppointmentService) { }
 
   ngOnInit(): void {
-    this.appointments = this.appointmentService.getAppointments()
+    //this.appointments = this.appointmentService.getAppointments()
   }
 
-  onFeatureSelect(feature: string) {
-    this.loadedFeature = feature
-  }
+  // onFeatureSelect(feature: string) {
+  //   this.loadedFeature = feature
+  // }
 
-  onAppointmentAdded(appointment: Appointment) {
-    //this.appointments.push(appointment)
-    this.loadedFeature = 'list'
-  }
+  // onAppointmentAdded(appointment: Appointment) {
+  //   this.appointments.push(appointment)
+  //   this.loadedFeature = 'list'
+  // }
 }
