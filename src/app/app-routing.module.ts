@@ -1,7 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { AddAppointmentComponent } from './components/add-appointment/add-appointment.component';
+import { AppointmentsListComponent } from './components/appointments-list/appointments-list.component';
+import { DisplayAppointmentComponent } from './components/display-appointment/display-appointment.component';
+import { EditAppointmentComponent } from './components/edit-appointment/edit-appointment.component';
+
+const routes: Routes = [
+  { path: '', redirectTo: '/appointments', pathMatch: 'full' },
+  { path: 'appointments', component: AppointmentsListComponent, children: [
+    { path: ':id', component: DisplayAppointmentComponent },
+    { path: ':id/edit', component: EditAppointmentComponent }
+  ]},
+  { path: 'add-appointment', component: AddAppointmentComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

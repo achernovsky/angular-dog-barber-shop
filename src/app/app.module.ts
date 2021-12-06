@@ -9,6 +9,8 @@ import { AppointmentsMainComponent } from './components/appointments-main/appoin
 import { AppointmentsListComponent } from './components/appointments-list/appointments-list.component';
 import { AppointmentComponent } from './components/appointment/appointment.component';
 import { AddAppointmentComponent } from './components/add-appointment/add-appointment.component';
+import { EditAppointmentComponent } from './components/edit-appointment/edit-appointment.component';
+import { DisplayAppointmentComponent } from './components/display-appointment/display-appointment.component';
 
 @NgModule({
   declarations: [
@@ -17,12 +19,14 @@ import { AddAppointmentComponent } from './components/add-appointment/add-appoin
     AppointmentsMainComponent,
     AppointmentsListComponent,
     AppointmentComponent,
-    AddAppointmentComponent
+    AddAppointmentComponent,
+    EditAppointmentComponent,
+    DisplayAppointmentComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
