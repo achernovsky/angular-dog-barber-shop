@@ -16,7 +16,7 @@ export class DisplayAppointmentComponent implements OnInit {
   constructor(private route: ActivatedRoute, private appointmentService: AppointmentService) { }
 
   ngOnInit(): void {
-    this.id = Number(this.route.snapshot.params['id'])
-    this.appointment = this.appointmentService.getAppointments().filter(app => app.id === this.id)[0]
+    this.id = +this.route.snapshot.params['id']
+    this.appointment = this.appointmentService.getAppointmentById(this.id)
   }
 }

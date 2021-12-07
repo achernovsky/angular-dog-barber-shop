@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Appointment } from 'src/app/models/appointment.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
 
@@ -10,19 +11,17 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 export class AddAppointmentComponent implements OnInit {
   @ViewChild('nameInput', { static: false }) nameInputRef: ElementRef
   @ViewChild('timeInput', { static: false }) timeInputRef: ElementRef
-  //@Output() appointmentAdded = new EventEmitter<any>()
 
-  constructor(private appointmentService: AppointmentService) { }
+  constructor(private appointmentService: AppointmentService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   onAdd() {
     const appName = this.nameInputRef.nativeElement.value
-    const appTime = this.timeInputRef.nativeElement.value
+    const appTime = new Date(this.timeInputRef.nativeElement.value)
     const newAppointment = new Appointment(appName, appTime)
     this.appointmentService.addAppointment(newAppointment)
-    //this.appointmentAdded.emit()
-
+    this.router.navigate(['/appointments'])
   }
 }

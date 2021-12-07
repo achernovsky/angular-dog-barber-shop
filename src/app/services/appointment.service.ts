@@ -10,6 +10,10 @@ export class AppointmentService {
         return this.appointments
     }
 
+    getAppointmentById(id: number) {
+        return this.appointments.filter(app => app.id === id)[0]
+    }
+
     addAppointment(app: Appointment) {
         this.appointments.push(app)
     }
