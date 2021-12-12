@@ -14,8 +14,7 @@ export class AddAppointmentComponent implements OnInit {
   dogName: string
   time: Time
   date: Date
-  dateToCheck: Date
-  today:string
+  today: string
   weekday: number
   apps = this.appointmentService.getAppointments();
 
@@ -25,9 +24,9 @@ export class AddAppointmentComponent implements OnInit {
     this.today = new Date().toISOString().substring(0,10)
   }
 
-  ngDoCheck() {
-    this.dateToCheck = new Date(this.date)
-    this.weekday = this.dateToCheck.getDay()
+  checkDayOfTheWeek() {
+    const dateToCheck = new Date(this.date)
+    this.weekday = dateToCheck.getDay()
   }
 
   onAdd(form: NgForm) {
@@ -38,7 +37,7 @@ export class AddAppointmentComponent implements OnInit {
   }
 
   checkAvailable(selectedTime: string) {
-    let timeToCheck = new Date(selectedTime + " " + this.date)
+    const timeToCheck = new Date(selectedTime + " " + this.date)
     let isAvailable = true
     if (timeToCheck < new Date()) {
       isAvailable = false

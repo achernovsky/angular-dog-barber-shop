@@ -30,7 +30,8 @@
                         required
                         min={{today}}
                         max="2022-12-31"
-                        #appdate="ngModel"  
+                        #appdate="ngModel"
+                        (input)="checkDayOfTheWeek()"
                     >
                     <div *ngIf="!appdate.valid && appdate.touched" class="form-text text-danger">Please select appointment date</div>
                     <div *ngIf="(date?.toString() < today || date?.toString() > '2022-12-31') && appdate.touched" class="form-text text-danger">Invalid date</div>
