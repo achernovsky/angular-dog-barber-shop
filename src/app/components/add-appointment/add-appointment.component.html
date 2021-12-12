@@ -1,20 +1,77 @@
+<div class="row mt-2">
+    <div class="col-xs-12">
+        <h5>Our oppening hours:</h5>
+        <p>Mon - Fri, 09:00 - 18:00</p>
+    </div>
+</div>
 <div class="row">
     <div class="col-xs-12">
-        <form action="">
+        <form (ngSubmit)="onAdd(f)" #f="ngForm">
             <div class="row my-3">
                 <div class="form-group col-sm-5">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" class="form-control" #nameInput>
+                    <label for="dogName">Your Dog Name</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        name="dogName"
+                        [(ngModel)]="dogName"
+                        required
+                        #dogname="ngModel"
+                    >
+                    <div *ngIf="!dogname.valid && dogname.touched" class="form-text text-danger">Dog name cannot be empty</div>
+                </div>
+                <div class="form-group col-sm-5">
+                    <label for="date">Date</label>
+                    <input 
+                        type="date" 
+                        class="form-control" 
+                        name="date"
+                        [(ngModel)]="date"
+                        required
+                        min={{today}}
+                        max="2022-12-31"
+                        #appdate="ngModel"  
+                    >
+                    <div *ngIf="!appdate.valid && appdate.touched" class="form-text text-danger">Please select appointment date</div>
+                    <div *ngIf="(date?.toString() < today || date?.toString() > '2022-12-31') && appdate.touched" class="form-text text-danger">Invalid date</div>
+                    <div *ngIf="weekday === 0 || weekday === 6" class="form-text text-danger">The barber shop is closed on this day</div>
                 </div>
                 <div class="form-group col-sm-5">
                     <label for="time">Time</label>
-                    <input type="datetime-local" id="time" class="form-control" #timeInput>
+                    <select 
+                        type="time" 
+                        class="form-control" 
+                        name="time"
+                        [(ngModel)]="time"
+                        required
+                        #apptime="ngModel"  
+                    >
+                        <option *ngIf="checkAvailable('09:00')" value="09:00">09:00</option>
+                        <option *ngIf="checkAvailable('09:30')" value="09:30">09:30</option>
+                        <option *ngIf="checkAvailable('10:00')" value="10:00">10:00</option>
+                        <option *ngIf="checkAvailable('10:30')" value="10:30">10:30</option>
+                        <option *ngIf="checkAvailable('11:00')" value="11:00">11:00</option>
+                        <option *ngIf="checkAvailable('11:30')" value="11:30">11:30</option>
+                        <option *ngIf="checkAvailable('12:00')" value="12:00">12:00</option>
+                        <option *ngIf="checkAvailable('12:30')" value="12:30">12:30</option>
+                        <option *ngIf="checkAvailable('13:00')" value="13:00">13:00</option>
+                        <option *ngIf="checkAvailable('13:30')" value="13:30">13:30</option>
+                        <option *ngIf="checkAvailable('14:00')" value="14:00">14:00</option>
+                        <option *ngIf="checkAvailable('14:30')" value="14:30">14:30</option>
+                        <option *ngIf="checkAvailable('15:00')" value="15:00">15:00</option>
+                        <option *ngIf="checkAvailable('15:30')" value="15:30">15:30</option>
+                        <option *ngIf="checkAvailable('16:00')" value="16:00">16:00</option>
+                        <option *ngIf="checkAvailable('16:30')" value="16:30">16:30</option>
+                        <option *ngIf="checkAvailable('17:00')" value="17:00">17:00</option>
+                        <option *ngIf="checkAvailable('17:30')" value="17:30">17:30</option>
+                    </select>
+                    <div *ngIf="!apptime.valid && apptime.touched" class="form-text text-danger">Please select appointment time</div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <a (click)="onAdd()" class="btn btn-success me-2">Add</a>
-                    <a routerLink="/appointments" class="btn btn-secondary me-2">Cancel</a>
+                    <button type="submit" class="btn btn-success me-2" [disabled]="!f.valid || date?.toString() < today || weekday === 0 || weekday === 6">Add</button>
+                    <button routerLink="/appointments" type="button" class="btn btn-secondary">Cancel</button>
                 </div>
             </div>
         </form>

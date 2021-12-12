@@ -1,4 +1,6 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Time } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Appointment } from 'src/app/models/appointment.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
@@ -9,19 +11,43 @@ import { AppointmentService } from 'src/app/services/appointment.service';
   styleUrls: ['./add-appointment.component.css']
 })
 export class AddAppointmentComponent implements OnInit {
-  @ViewChild('nameInput', { static: false }) nameInputRef: ElementRef
-  @ViewChild('timeInput', { static: false }) timeInputRef: ElementRef
+  dogName: string
+  time: Time
+  date: Date
+  dateToCheck: Date
+  today:string
+  weekday: number
+  apps = this.appointmentService.getAppointments();
 
   constructor(private appointmentService: AppointmentService, private router: Router) { }
 
   ngOnInit(): void {
+    this.today = new Date().toISOString().substring(0,10)
   }
 
-  onAdd() {
-    const appName = this.nameInputRef.nativeElement.value
-    const appTime = new Date(this.timeInputRef.nativeElement.value)
-    const newAppointment = new Appointment(appName, appTime)
+  ngDoCheck() {
+    this.dateToCheck = new Date(this.date)
+    this.weekday = this.dateToCheck.getDay()
+  }
+
+  onAdd(form: NgForm) {
+    let appTime = new Date(this.time + " " + this.date)
+    const newAppointment = new Appointment(this.dogName, appTime)
     this.appointmentService.addAppointment(newAppointment)
     this.router.navigate(['/appointments'])
+  }
+
+  checkAvailable(selectedTime: string) {
+    let timeToCheck = new Date(selectedTime + " " + this.date)
+    let isAvailable = true
+    if (timeToCheck < new Date()) {
+      isAvailable = false
+    }
+    this.apps.forEach(a => {
+      if (a.time.toString() === timeToCheck.toString()) {
+        isAvailable = false
+      }
+    })
+    return isAvailable
   }
 }
