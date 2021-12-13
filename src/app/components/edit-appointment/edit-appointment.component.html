@@ -15,29 +15,56 @@
                             class="form-control" 
                             formControlName="dogName"
                         >
+                        <div *ngIf="!editForm.get('dogName').valid" class="form-text text-danger">Dog name cannot be empty</div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label class="form-label" for="date">Appointment Date: </label>
                         <input 
                             type="date" 
                             id="date" 
                             class="form-control" 
                             formControlName="date"
+                            min={{today}}
+                            max="2022-12-31"
                         >
+                        <div *ngIf="!editForm.get('date').valid">
+                            <div *ngIf="editForm.get('date').errors['invalidDate']" class="form-text text-danger">Invalid date</div>
+                            <div *ngIf="editForm.get('date').errors['invalidDayOfTheWeek']" class="form-text text-danger">The barber shop is closed on this day</div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="time">Appointment Time: </label>
-                        <input 
+                        <select 
                             type="time" 
                             id="time" 
                             class="form-control" 
                             formControlName="time"
                         >
+                            <option *ngIf="checkAvailableTimeSlot('09:00')" value="09:00">09:00</option>
+                            <option *ngIf="checkAvailableTimeSlot('09:30')" value="09:30">09:30</option>
+                            <option *ngIf="checkAvailableTimeSlot('10:00')" value="10:00">10:00</option>
+                            <option *ngIf="checkAvailableTimeSlot('10:30')" value="10:30">10:30</option>
+                            <option *ngIf="checkAvailableTimeSlot('11:00')" value="11:00">11:00</option>
+                            <option *ngIf="checkAvailableTimeSlot('11:30')" value="11:30">11:30</option>
+                            <option *ngIf="checkAvailableTimeSlot('12:00')" value="12:00">12:00</option>
+                            <option *ngIf="checkAvailableTimeSlot('12:30')" value="12:30">12:30</option>
+                            <option *ngIf="checkAvailableTimeSlot('13:00')" value="13:00">13:00</option>
+                            <option *ngIf="checkAvailableTimeSlot('13:30')" value="13:30">13:30</option>
+                            <option *ngIf="checkAvailableTimeSlot('14:00')" value="14:00">14:00</option>
+                            <option *ngIf="checkAvailableTimeSlot('14:30')" value="14:30">14:30</option>
+                            <option *ngIf="checkAvailableTimeSlot('15:00')" value="15:00">15:00</option>
+                            <option *ngIf="checkAvailableTimeSlot('15:30')" value="15:30">15:30</option>
+                            <option *ngIf="checkAvailableTimeSlot('16:00')" value="16:00">16:00</option>
+                            <option *ngIf="checkAvailableTimeSlot('16:30')" value="16:30">16:30</option>
+                            <option *ngIf="checkAvailableTimeSlot('17:00')" value="17:00">17:00</option>
+                            <option *ngIf="checkAvailableTimeSlot('17:30')" value="17:30">17:30</option>
+                        </select>
+                        <div *ngIf="!editForm.get('time').valid" class="form-text text-danger">Invalid Time</div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button routerLink="/appointments" type="button" class="btn btn-secondary">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!editForm.valid">Save Changes</button>
                 </div>
             </form>
         </div>
