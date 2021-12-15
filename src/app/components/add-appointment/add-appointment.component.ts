@@ -1,7 +1,9 @@
 import { Time } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Appointment } from 'src/app/models/appointment.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
 
@@ -10,18 +12,36 @@ import { AppointmentService } from 'src/app/services/appointment.service';
   templateUrl: './add-appointment.component.html',
   styleUrls: ['./add-appointment.component.css']
 })
-export class AddAppointmentComponent implements OnInit {
+export class AddAppointmentComponent implements OnInit, OnDestroy {
   dogName: string
   time: Time
   date: Date
   today: string
   weekday: number
-  apps = this.appointmentService.getAppointments();
+  apps: Appointment[]
+  private appsChangeSub: Subscription
 
-  constructor(private appointmentService: AppointmentService, private router: Router) { }
+  constructor(
+    private appointmentService: AppointmentService, 
+    private router: Router,
+    //private http: HttpClient
+  ) { }
 
   ngOnInit(): void {
     this.today = new Date().toISOString().substring(0,10)
+    this.apps = this.appointmentService.getAppointments();
+    this.appsChangeSub = this.appointmentService.appointmentsChanged
+      .subscribe(
+        (appointments: Appointment[]) => {
+          this.apps = appointments
+        }
+      )
+
+    //this.fetchPosts()
+  }
+
+  ngOnDestroy(): void {
+     this.appsChangeSub.unsubscribe()
   }
 
   checkDayOfTheWeek() {
@@ -33,6 +53,10 @@ export class AddAppointmentComponent implements OnInit {
     let appTime = new Date(this.time + " " + this.date)
     const newAppointment = new Appointment(this.dogName, appTime)
     this.appointmentService.addAppointment(newAppointment)
+    // this.http.post("https://jsonplaceholder.typicode.com/posts", newAppointment)
+    //   .subscribe(responseData => {
+    //     console.log(responseData)
+    //   })
     this.router.navigate(['/appointments'])
   }
 
@@ -49,4 +73,9 @@ export class AddAppointmentComponent implements OnInit {
     })
     return isAvailable
   }
+
+  // private fetchPosts() {
+  //   this.http.get('http://localhost:7261/appointments/')
+  //     .subscribe(posts => console.log(posts))
+  // }
 }

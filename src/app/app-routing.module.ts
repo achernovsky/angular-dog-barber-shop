@@ -5,6 +5,7 @@ import { AddAppointmentComponent } from './components/add-appointment/add-appoin
 import { AppointmentsListComponent } from './components/appointments-list/appointments-list.component';
 import { DisplayAppointmentComponent } from './components/display-appointment/display-appointment.component';
 import { EditAppointmentComponent } from './components/edit-appointment/edit-appointment.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/appointments', pathMatch: 'full' },
@@ -12,7 +13,8 @@ const routes: Routes = [
     { path: ':id', component: DisplayAppointmentComponent },
     { path: ':id/edit', component: EditAppointmentComponent }
   ]},
-  { path: 'add-appointment', component: AddAppointmentComponent }
+  { path: 'add-appointment', component: AddAppointmentComponent },
+  { path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +12,7 @@ import { AppointmentComponent } from './components/appointment/appointment.compo
 import { AddAppointmentComponent } from './components/add-appointment/add-appointment.component';
 import { EditAppointmentComponent } from './components/edit-appointment/edit-appointment.component';
 import { DisplayAppointmentComponent } from './components/display-appointment/display-appointment.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -21,13 +23,15 @@ import { DisplayAppointmentComponent } from './components/display-appointment/di
     AppointmentComponent,
     AddAppointmentComponent,
     EditAppointmentComponent,
-    DisplayAppointmentComponent
+    DisplayAppointmentComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
