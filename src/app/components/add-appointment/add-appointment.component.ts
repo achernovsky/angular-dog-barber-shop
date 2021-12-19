@@ -24,7 +24,7 @@ export class AddAppointmentComponent implements OnInit, OnDestroy {
 
   constructor(
     private appointmentService: AppointmentService, 
-    private router: Router,
+    private router: Router
   ) { }
 
   ngOnInit(): void {

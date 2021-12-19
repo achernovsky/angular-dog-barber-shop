@@ -65,4 +65,8 @@ export class AppointmentService {
     editAppointment(id: number, data: any) {
         return this.http.patch(`http://localhost:7261/appointments/${id}`, data)
     }
+
+    deleteAppointment(id: number) {
+        return this.http.delete(`http://localhost:7261/appointments/${id}`)
+    }
 }
