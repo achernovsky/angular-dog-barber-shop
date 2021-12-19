@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Appointment } from 'src/app/models/appointment.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
 
@@ -8,18 +9,27 @@ import { AppointmentService } from 'src/app/services/appointment.service';
   styleUrls: ['./appointments-list.component.css']
 })
 export class AppointmentsListComponent implements OnInit {
-  // @Input() appointments: Appointment[]
-  appointments: Appointment[]
+  appointments: Appointment[] = []
+  private appsChangeSub: Subscription
   @Output() featureSelected = new EventEmitter<string>();
 
   constructor(private appointmentService: AppointmentService) { }
 
   ngOnInit(): void {
-    this.appointments = this.appointmentService.getAppointments()
+    this.appointmentService.getAppointments()
+      .subscribe((response: Appointment[]) => {
+        this.appointments = response
+      });
+    
+    this.appsChangeSub = this.appointmentService.appointmentsChanged
+    .subscribe(
+      (appointments: Appointment[]) => {
+        this.appointments = appointments
+      }
+    )
   }
 
-  // onClick(feature: string) {
-  //   this.featureSelected.emit(feature)
-  // }
-
+  ngOnDestroy(): void {
+    this.appsChangeSub.unsubscribe()
+  }
 }

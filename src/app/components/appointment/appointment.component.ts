@@ -8,10 +8,12 @@ import { Appointment } from 'src/app/models/appointment.model';
 })
 export class AppointmentComponent implements OnInit {
   @Input() appointment: Appointment
+  timeToDisplay: string
 
   constructor() { }
 
   ngOnInit(): void {
+    let date = new Date(this.appointment.time)
+    this.timeToDisplay = date.toString().substring(0, 21)
   }
-
 }

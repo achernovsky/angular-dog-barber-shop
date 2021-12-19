@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit {{ appointment.name }}'s Appointment:</h5>
+                <h5 class="modal-title">Edit {{ appointment.dog.name }}'s Appointment:</h5>
                 <button routerLink="/appointments" type="button" class="btn-close"></button>
             </div>
             <form [formGroup]="editForm" (ngSubmit)="onSaveChanges()">

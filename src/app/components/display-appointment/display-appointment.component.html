@@ -7,9 +7,9 @@
             </div>
             <div class="modal-body">
                 <p><span class="fw-bold">Id: </span>{{ appointment.id }}</p>
-                <p><span class="fw-bold">Dog Name: </span>{{ appointment.name }}</p>
-                <p><span class="fw-bold">Appointment Time: </span>{{ appointment.time }}</p>
-                <p><span class="fw-bold">Created At: </span>{{ appointment.createTime }}</p>
+                <p><span class="fw-bold">Dog Name: </span>{{ appointment.dog.name }}</p>
+                <p><span class="fw-bold">Appointment Time: </span>{{ timeToDisplay }}</p>
+                <p><span class="fw-bold">Created At: </span>{{ createdAtToDisplay }}</p>
             </div>
             <div class="modal-footer">
             <button routerLink="/appointments" type="button" class="btn btn-secondary">Close</button>

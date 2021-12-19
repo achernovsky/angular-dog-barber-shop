@@ -1,16 +1,26 @@
+import { Dog } from "./dog.model"
+
 export class Appointment {
     public id: number
-    public name: string
+    public dogId: number
+    public dog: Dog
+    public applicationUserId: string
     public time: Date
-    public createTime: Date
+    public createdAt: Date
 
-    private static currentId = 1
 
-    constructor(name: string, time: Date) {
-        this.id = Appointment.currentId
-        this.name = name
-        this.time = time
-        this.createTime = new Date(Date.now())
-        Appointment.currentId++
+    constructor() {
+        this.dog = new Dog()
     }
+
+    // constructor(id: number, dogId: number, dog: Dog, applicationUserId: string, time: Date, createdAt: Date) {
+    //     console.log('creating appoinrment')
+    //     this.id = id
+    //     this.dogId = dogId
+    //     this.dog = dog
+    //     this.applicationUserId = applicationUserId
+    //     this.time = time
+    //     this.createdAt = createdAt
+
+    // }
 }

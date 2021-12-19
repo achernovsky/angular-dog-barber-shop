@@ -12,7 +12,7 @@ import { AppointmentComponent } from './components/appointment/appointment.compo
 import { AddAppointmentComponent } from './components/add-appointment/add-appointment.component';
 import { EditAppointmentComponent } from './components/edit-appointment/edit-appointment.component';
 import { DisplayAppointmentComponent } from './components/display-appointment/display-appointment.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
