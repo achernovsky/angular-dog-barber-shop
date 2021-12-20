@@ -59,7 +59,9 @@ export class AddAppointmentComponent implements OnInit, OnDestroy {
     console.log(appTime)
     const newAppointment = {
       time: appTime,
-      dogId: 1
+      dog: {
+        name: this.dogName
+      }
     }
     console.log(newAppointment)
     this.appointmentService.addAppointment(newAppointment)

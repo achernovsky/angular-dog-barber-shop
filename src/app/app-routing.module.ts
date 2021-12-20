@@ -6,6 +6,7 @@ import { AppointmentsListComponent } from './components/appointments-list/appoin
 import { DisplayAppointmentComponent } from './components/display-appointment/display-appointment.component';
 import { EditAppointmentComponent } from './components/edit-appointment/edit-appointment.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/appointments', pathMatch: 'full' },
@@ -14,6 +15,7 @@ const routes: Routes = [
     { path: ':id/edit', component: EditAppointmentComponent }
   ]},
   { path: 'add-appointment', component: AddAppointmentComponent },
+  { path: 'login', component: LoginPageComponent },
   { path: '**', component: PageNotFoundComponent}
 ];
 

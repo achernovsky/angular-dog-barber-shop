@@ -13,6 +13,8 @@ import { AddAppointmentComponent } from './components/add-appointment/add-appoin
 import { EditAppointmentComponent } from './components/edit-appointment/edit-appointment.component';
 import { DisplayAppointmentComponent } from './components/display-appointment/display-appointment.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     AddAppointmentComponent,
     EditAppointmentComponent,
     DisplayAppointmentComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LoginPageComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,

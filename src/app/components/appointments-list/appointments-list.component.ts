@@ -10,15 +10,19 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 })
 export class AppointmentsListComponent implements OnInit {
   appointments: Appointment[] = []
+  isLoading: boolean = false
   private appsChangeSub: Subscription
+  private appointmentSub: Subscription
   @Output() featureSelected = new EventEmitter<string>();
 
   constructor(private appointmentService: AppointmentService) { }
 
   ngOnInit(): void {
-    this.appointmentService.getAppointments()
+    this.isLoading = true
+    this.appointmentSub = this.appointmentService.getAppointments()
       .subscribe((response: Appointment[]) => {
         this.appointments = response
+        this.isLoading = false
       });
     
     this.appsChangeSub = this.appointmentService.appointmentsChanged
@@ -31,5 +35,6 @@ export class AppointmentsListComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.appsChangeSub.unsubscribe()
+    this.appointmentSub.unsubscribe()
   }
 }
