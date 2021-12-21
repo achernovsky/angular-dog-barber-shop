@@ -13,9 +13,12 @@ import { AddAppointmentComponent } from './components/add-appointment/add-appoin
 import { EditAppointmentComponent } from './components/edit-appointment/edit-appointment.component';
 import { DisplayAppointmentComponent } from './components/display-appointment/display-appointment.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { LoginPageComponent } from './components/login-page/login-page.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { RegisterPageComponent } from './components/register-page/register-page.component';
+import { MainBannerComponent } from './components/main-banner/main-banner.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     DisplayAppointmentComponent,
     PageNotFoundComponent,
     LoginPageComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    RegisterPageComponent,
+    MainBannerComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,

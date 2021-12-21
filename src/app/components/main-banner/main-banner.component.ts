@@ -3,11 +3,11 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: 'app-main-banner',
+  templateUrl: './main-banner.component.html',
+  styleUrls: ['./main-banner.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class MainBannerComponent implements OnInit {
   isLoggedIn: boolean = false
   private userSub: Subscription
 
@@ -20,10 +20,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.userSub.unsubscribe()
-  }
-
-  onLogout() {
-    this.authService.logout()
+    this.userSub.unsubscribe()
   }
 }

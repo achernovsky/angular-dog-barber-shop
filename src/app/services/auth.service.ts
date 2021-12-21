@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { BehaviorSubject, Subject, tap } from "rxjs";
 import { User } from "../models/user.model";
 
@@ -13,10 +14,10 @@ interface LoginResponseData {
 export class AuthService {
     user = new BehaviorSubject<User>(null)
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private router: Router) { }
 
-    register() {
-
+    register(data) {
+        return this.http.post("http://localhost:7261/authentication/RegisterClient", data)
     }
 
     login(data) {
@@ -25,5 +26,10 @@ export class AuthService {
             const user = new User(response.userid, response.username, response.token)
             this.user.next(user)
         }))
+    }
+
+    logout() {
+        this.user.next(null)
+        this.router.navigate(["/login"])
     }
 }

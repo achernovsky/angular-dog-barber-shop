@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -43,6 +43,8 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.loginSub.unsubscribe()
+    if (this.loginSub){
+      this.loginSub.unsubscribe()
+    }
   }
 }
