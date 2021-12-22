@@ -25,11 +25,26 @@ export class AuthService {
         .pipe(tap(response => {
             const user = new User(response.userid, response.username, response.token)
             this.user.next(user)
+            localStorage.setItem('userData', JSON.stringify(user))
         }))
+    }
+
+    autoLogin() {
+        const userData: {
+            userid: string, 
+            username: string, 
+            _token: string
+        } = JSON.parse(localStorage.getItem('userData'))
+        if (!userData) {
+            return
+        }
+        const loadedUser = new User(userData.userid, userData.username, userData._token)
+        this.user.next(loadedUser)
     }
 
     logout() {
         this.user.next(null)
         this.router.navigate(["/login"])
+        localStorage.removeItem('userData')
     }
 }

@@ -19,6 +19,7 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { RegisterPageComponent } from './components/register-page/register-page.component';
 import { MainBannerComponent } from './components/main-banner/main-banner.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { HomePageComponent } from './components/home-page/home-page.component';
     LoadingSpinnerComponent,
     RegisterPageComponent,
     MainBannerComponent,
-    HomePageComponent
+    HomePageComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

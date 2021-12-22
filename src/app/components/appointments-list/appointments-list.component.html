@@ -1,5 +1,7 @@
-<app-main-banner></app-main-banner>
-<div class="row mt-2">
+<!-- <app-main-banner></app-main-banner> -->
+<button class="btn btn-success my-2" [routerLink]="isLoggedIn ? '/add-appointment' : '/login'">New Appointment</button>
+
+<div class="row">
     <div *ngIf="isLoading" class="text-center">
         <app-loading-spinner></app-loading-spinner>
     </div>

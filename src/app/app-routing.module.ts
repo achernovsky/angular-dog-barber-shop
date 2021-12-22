@@ -9,15 +9,19 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { RegisterPageComponent } from './components/register-page/register-page.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomePageComponent },
-  { path: 'appointments', component: AppointmentsListComponent, children: [
-    { path: ':id', component: DisplayAppointmentComponent },
-    { path: ':id/edit', component: EditAppointmentComponent }
-  ]},
-  { path: 'add-appointment', component: AddAppointmentComponent },
+  { path: 'appointments', component: AppointmentsListComponent, 
+    children: [
+      { path: ':id', component: DisplayAppointmentComponent },
+      { path: ':id/edit', component: EditAppointmentComponent }
+    ], 
+    canActivate: [AuthGuard] 
+  },
+  { path: 'add-appointment', component: AddAppointmentComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
   { path: '**', component: PageNotFoundComponent}

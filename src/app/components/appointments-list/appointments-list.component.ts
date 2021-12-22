@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Appointment } from 'src/app/models/appointment.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-appointments-list',
@@ -11,13 +12,18 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 export class AppointmentsListComponent implements OnInit {
   appointments: Appointment[] = []
   isLoading: boolean = false
+  isLoggedIn: boolean = false
+  private userSub: Subscription
   private appsChangeSub: Subscription
   private appointmentSub: Subscription
   @Output() featureSelected = new EventEmitter<string>();
 
-  constructor(private appointmentService: AppointmentService) { }
+  constructor(private appointmentService: AppointmentService, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.userSub = this.authService.user.subscribe(user => {
+      this.isLoggedIn = !!user
+    })
     this.isLoading = true
     this.appointmentSub = this.appointmentService.getAppointments()
       .subscribe((response: Appointment[]) => {
@@ -36,5 +42,6 @@ export class AppointmentsListComponent implements OnInit {
   ngOnDestroy(): void {
     this.appsChangeSub.unsubscribe()
     this.appointmentSub.unsubscribe()
+    this.userSub.unsubscribe()
   }
 }
