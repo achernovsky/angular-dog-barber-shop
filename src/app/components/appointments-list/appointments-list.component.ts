@@ -28,6 +28,11 @@ export class AppointmentsListComponent implements OnInit {
     this.appointmentSub = this.appointmentService.getAppointments()
       .subscribe((response: Appointment[]) => {
         this.appointments = response
+        this.appointments.sort((a, b) => {
+          let d1 = new Date(a.time)
+          let d2 = new Date(b.time)
+          return d1.getTime() - d2.getTime()
+        })
         this.isLoading = false
       });
     

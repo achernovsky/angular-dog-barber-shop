@@ -10,7 +10,7 @@
             <div class="row my-3">
                 <div class="form-group col-sm-5">
                     <label for="dogName">Your Dog Name</label>
-                    <input 
+                    <select 
                         type="text" 
                         class="form-control" 
                         name="dogName"
@@ -18,6 +18,8 @@
                         required
                         #dogname="ngModel"
                     >
+                    <option *ngFor="let dog of dogs" [ngValue]="dog.name">{{dog.name}}</option>
+                    </select>
                     <div *ngIf="!dogname.valid && dogname.touched" class="form-text text-danger">Dog name cannot be empty</div>
                 </div>
                 <div class="form-group col-sm-5">

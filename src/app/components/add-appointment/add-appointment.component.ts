@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { Appointment } from 'src/app/models/appointment.model';
 import { Dog } from 'src/app/models/dog.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
+import { DogService } from 'src/app/services/dog.service';
 
 @Component({
   selector: 'app-add-appointment',
@@ -20,16 +21,20 @@ export class AddAppointmentComponent implements OnInit, OnDestroy {
   today: string
   weekday: number
   apps: Appointment[] = []
+  dogs: Dog[] = []
   private appsChangeSub: Subscription
+  private getUserDogsSub: Subscription
+  private getAppsSub: Subscription
 
   constructor(
     private appointmentService: AppointmentService, 
+    private dogService: DogService, 
     private router: Router
   ) { }
 
   ngOnInit(): void {
     this.today = new Date().toISOString().substring(0,10)
-    this.appointmentService.getAppointments()
+    this.getAppsSub = this.appointmentService.getAppointments()
     .subscribe((res: Appointment[]) => {
       this.apps = res
     })
@@ -39,10 +44,16 @@ export class AddAppointmentComponent implements OnInit, OnDestroy {
           this.apps = appointments
         }
       )
+    this.getUserDogsSub = this.dogService.getUserDogs()
+    .subscribe((res: Dog[]) => {
+      this.dogs = res
+    })
   }
 
   ngOnDestroy(): void {
      this.appsChangeSub.unsubscribe()
+     this.getUserDogsSub.unsubscribe()
+     this.getAppsSub.unsubscribe()
   }
 
   checkDayOfTheWeek() {
@@ -51,12 +62,7 @@ export class AddAppointmentComponent implements OnInit, OnDestroy {
   }
 
   onAdd(form: NgForm) {
-    // let appTime = new Date(this.time + " " + this.date)
-    // const newAppointment = new Appointment(this.dogName, appTime)
-    // this.appointmentService.addAppointment(newAppointment)
-    // this.router.navigate(['/appointments'])
     const appTime = new Date(this.date + " " + this.time)
-    console.log(appTime)
     const newAppointment = {
       time: appTime,
       dog: {
@@ -69,17 +75,17 @@ export class AddAppointmentComponent implements OnInit, OnDestroy {
       console.log("added successfully")
       this.router.navigate(['/appointments'])
     })
-    
   }
 
   checkAvailable(selectedTime: string) {
-    const timeToCheck = new Date(selectedTime + " " + this.date)
+    const timeToCheck = new Date(this.date + " " + selectedTime)
     let isAvailable = true
     if (timeToCheck < new Date()) {
       isAvailable = false
     }
     this.apps.forEach(a => {
-      if (a.time.toString() === timeToCheck.toString()) {
+      let otherTime = new Date(a.time)
+      if (otherTime.toString() === timeToCheck.toString()) {
         isAvailable = false
       }
     })
