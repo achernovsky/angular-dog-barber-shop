@@ -37,7 +37,6 @@ export class EditAppointmentComponent implements OnInit {
     this.getUserDogsSub = this.dogService.getUserDogs()
     .subscribe((res: Dog[]) => {
       this.dogs = res
-      console.log(this.dogs)
     })
 
     this.appointmentService.getAppointmentById(id)
