@@ -39,7 +39,6 @@
                     class="form-control"
                     ngModel
                     name="dog"
-                    required
                 >
                 <div class="my-2">
                     <p *ngFor="let dog of dogs">{{dog["Name"]}}</p>
@@ -47,7 +46,7 @@
             </div>
 
             <div class="my-2">
-                <button type="submit" [disabled]="!registerForm.valid" class="btn btn-primary">Register</button>
+                <button type="submit" [disabled]="!registerForm.valid || dogs.length === 0" class="btn btn-primary">Register</button>
             </div>
             <div>
                 <a routerLink="/login">Already have an account? Login here!</a>

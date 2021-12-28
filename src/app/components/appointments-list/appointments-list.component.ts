@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Appointment } from 'src/app/models/appointment.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
@@ -19,7 +19,6 @@ export class AppointmentsListComponent implements OnInit {
   private userSub: Subscription
   private appsChangeSub: Subscription
   private appointmentSub: Subscription
-  @Output() featureSelected = new EventEmitter<string>();
 
   constructor(private appointmentService: AppointmentService, private authService: AuthService) { }
 
@@ -31,11 +30,7 @@ export class AppointmentsListComponent implements OnInit {
     this.appointmentSub = this.appointmentService.getAppointments()
       .subscribe((response: Appointment[]) => {
         this.appointments = response
-        this.appointments.sort((a, b) => {
-          let d1 = new Date(a.time)
-          let d2 = new Date(b.time)
-          return d1.getTime() - d2.getTime()
-        })
+        this.sortAppointments()
         this.isLoading = false
       });
     
@@ -43,6 +38,7 @@ export class AppointmentsListComponent implements OnInit {
     .subscribe(
       (appointments: Appointment[]) => {
         this.appointments = appointments
+        this.sortAppointments()
       }
     )
   }
@@ -51,5 +47,21 @@ export class AppointmentsListComponent implements OnInit {
     this.appsChangeSub.unsubscribe()
     this.appointmentSub.unsubscribe()
     this.userSub.unsubscribe()
+  }
+
+  sortAppointments() {
+    this.appointments.sort((a, b) => {
+      let d1 = new Date(a.time)
+      let d2 = new Date(b.time)
+      return d1.getTime() - d2.getTime()
+    })
+  }
+
+  matchNameDate(app: Appointment): boolean {
+    return (
+      app.dog.name.toLowerCase().includes(this.keyword.toLowerCase()) &&
+      (this.keydate.toString() == this.keydateDefaultStr || 
+      app.time.toString().includes(this.keydate.toString()))
+    )
   }
 }

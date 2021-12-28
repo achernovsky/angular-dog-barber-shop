@@ -19,9 +19,7 @@
         <router-outlet></router-outlet>
         <div *ngFor="let app of appointments">
             <app-appointment 
-                *ngIf="app.dog.name.toLowerCase().includes(keyword.toLowerCase()) &&
-                keydate.toString() == keydateDefaultStr || 
-                app.time.toString().includes(keydate.toString())" 
+                *ngIf="matchNameDate(app)"
                 [appointment]="app"
             >
             </app-appointment>
