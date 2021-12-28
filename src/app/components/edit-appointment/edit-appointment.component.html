@@ -9,12 +9,14 @@
                 <div class="modal-body">
                     <div class="form-group mb-2">
                         <label class="form-label" for="dogName">Dog Name: </label>
-                        <input 
+                        <select 
                             type="text" 
                             id="dogName" 
                             class="form-control" 
                             formControlName="dogName"
                         >
+                        <option *ngFor="let dog of dogs" [ngValue]="dog.name">{{dog.name}}</option>
+                        </select>
                         <div *ngIf="!editForm.get('dogName').valid" class="form-text text-danger">Dog name cannot be empty</div>
                     </div>
                     <div class="form-group mb-2">

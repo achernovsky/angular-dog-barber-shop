@@ -1,7 +1,5 @@
-import { Appointment } from "../models/appointment.model";
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
 import { AuthService } from "./auth.service";
 
 @Injectable({providedIn: 'root'})

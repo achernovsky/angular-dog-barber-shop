@@ -1,12 +1,30 @@
-<!-- <app-main-banner></app-main-banner> -->
 <button class="btn btn-success my-2" [routerLink]="isLoggedIn ? '/add-appointment' : '/login'">New Appointment</button>
-
+<div class="mb-3 row">
+    <label for="keyword" class="col-sm-4 col-form-label">Search by name</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="keyword" [(ngModel)]="keyword">
+    </div>
+</div>
+<div class="mb-3 row">
+    <label for="keydate" class="col-sm-4 col-form-label">Search by date</label>
+    <div class="col-sm-8">
+      <input type="date" class="form-control" id="keydate" [(ngModel)]="keydate">
+    </div>
+</div>
 <div class="row">
     <div *ngIf="isLoading" class="text-center">
         <app-loading-spinner></app-loading-spinner>
     </div>
     <div class="col-xs-12 list-group p-0" *ngIf="!isLoading">
         <router-outlet></router-outlet>
-        <app-appointment *ngFor="let app of appointments" [appointment]="app"></app-appointment>
+        <div *ngFor="let app of appointments">
+            <app-appointment 
+                *ngIf="app.dog.name.toLowerCase().includes(keyword.toLowerCase()) &&
+                keydate.toString() == keydateDefaultStr || 
+                app.time.toString().includes(keydate.toString())" 
+                [appointment]="app"
+            >
+            </app-appointment>
+        </div>
     </div>
 </div>

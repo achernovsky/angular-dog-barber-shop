@@ -7,20 +7,8 @@ export class Appointment {
     public applicationUserId: string
     public time: Date
     public createdAt: Date
-
-
+    
     constructor() {
         this.dog = new Dog()
     }
-
-    // constructor(id: number, dogId: number, dog: Dog, applicationUserId: string, time: Date, createdAt: Date) {
-    //     console.log('creating appoinrment')
-    //     this.id = id
-    //     this.dogId = dogId
-    //     this.dog = dog
-    //     this.applicationUserId = applicationUserId
-    //     this.time = time
-    //     this.createdAt = createdAt
-
-    // }
 }

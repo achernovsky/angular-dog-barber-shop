@@ -2,8 +2,11 @@ import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Appointment } from 'src/app/models/appointment.model';
+import { Dog } from 'src/app/models/dog.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
+import { DogService } from 'src/app/services/dog.service';
 
 @Component({
   selector: 'app-edit-appointment',
@@ -13,10 +16,15 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 export class EditAppointmentComponent implements OnInit {
   appointments: Appointment[] = []
   appointment: Appointment = new Appointment
+  dogs: Dog[] = []
   editForm: FormGroup
   today: string
+  private getUserDogsSub: Subscription
 
-  constructor(private route: ActivatedRoute, private router: Router, private appointmentService: AppointmentService) { }
+  constructor(private route: ActivatedRoute, 
+    private router: Router, 
+    private appointmentService: AppointmentService,
+    private dogService: DogService) { }
 
   ngOnInit(): void {
     const id = +this.route.snapshot.params['id']
@@ -26,6 +34,11 @@ export class EditAppointmentComponent implements OnInit {
       this.appointments = response
     });
 
+    this.getUserDogsSub = this.dogService.getUserDogs()
+    .subscribe((res: Dog[]) => {
+      this.dogs = res
+      console.log(this.dogs)
+    })
 
     this.appointmentService.getAppointmentById(id)
     .subscribe((response: Appointment) => {
@@ -56,28 +69,24 @@ export class EditAppointmentComponent implements OnInit {
 
     this.editForm = new FormGroup({
       'dogName': new FormControl(
-        // this.appointment.dog.name, 
-        // Validators.required
       ),
       'date': new FormControl(
-        // `${this.appointment.time}`,
-        // [
-        //   Validators.required,
-        //   this.invalidDates.bind(this),
-        //   this.invalidDaysOfTheWeek.bind(this)
-        // ]
       ),
       'time': new FormControl(
-        // this.appointment.time, 
-        // Validators.required
       )
     })
   }
 
   onSaveChanges() { 
-    // const appTime = this.editForm.value.date + " " + this.editForm.value.time
-    // this.appointment.dog.name = this.editForm.value.dogName
-    // this.appointment.time = new Date(appTime)
+    let newName: string = this.editForm.value.dogName
+    let newId
+
+    this.dogs.forEach(d => {
+      if (d.name === newName) {
+        newId = d.id
+      }
+    })
+
     let body = 
     [
       {
@@ -87,21 +96,17 @@ export class EditAppointmentComponent implements OnInit {
       },
       {
         "value": {
-          Id: this.appointment.dogId,
+          Id: newId,
           ApplicationUserId: this.appointment.applicationUserId,
-          Name: this.editForm.value.dogName
+          Name: newName
         },
         "path": "/Dog",
         "op": "replace"
       }
     ]
-    // {
-    //   "value": this.editForm.value.dogName,
-    //   "path": "/Dog/Name",
-    //   "op": "replace"
-    // }
-    
-    //console.log(body)
+
+    console.log(body)
+
     this.appointmentService.editAppointment(this.appointment.id, body)
     .subscribe(response => {
       console.log("Successfully updated", response)

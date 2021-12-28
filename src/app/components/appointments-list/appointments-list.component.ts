@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Appointment } from 'src/app/models/appointment.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
@@ -10,6 +10,9 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./appointments-list.component.css']
 })
 export class AppointmentsListComponent implements OnInit {
+  keyword: string = ""
+  keydate: Date = new Date(0)
+  keydateDefaultStr = new Date(0).toString()
   appointments: Appointment[] = []
   isLoading: boolean = false
   isLoggedIn: boolean = false
